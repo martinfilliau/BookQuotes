@@ -12,7 +12,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all"/>
         <PackageReference Include="MudBlazor" Version="8.2.0" />
-        <PackageReference Include="VersOne.Epub" Version="3.3.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,6 +60,11 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BookQuotes.Application\BookQuotes.Application.csproj" />
+      <ProjectReference Include="..\BookQuotes.Infrastructure\BookQuotes.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

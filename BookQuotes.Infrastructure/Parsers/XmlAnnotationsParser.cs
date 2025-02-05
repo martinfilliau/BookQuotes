@@ -5,7 +5,7 @@ namespace BookQuotes.Infrastructure.Parsers;
 
 public class XmlAnnotationsParser
 {
-    public Book Parse(string xmlData)
+    public static Book Parse(string xmlData)
     {
         var bookTitle = "";
         var author = "";

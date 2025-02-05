@@ -1,11 +1,29 @@
-<MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="UploadFiles">
-    <ActivatorContent>
-        <MudButton Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   StartIcon="@Icons.Material.Filled.CloudUpload">
-            Upload Epub or XML files with annotations
-        </MudButton>
-    </ActivatorContent>
-</MudFileUpload>
-
-<p>@_title</p>
+<MudGrid>
+    <MudItem xs="12">
+        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="UploadFiles">
+            <ActivatorContent>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload">
+                    Upload Epub or XML files with annotations
+                </MudButton>
+            </ActivatorContent>
+        </MudFileUpload>       
+    </MudItem>
+    <MudItem xs="6">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!_canStartAnalysis">Start</MudButton>
+    </MudItem>
+    <MudItem xs="6">
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
+    </MudItem>
+    <MudItem xs="6">
+        @if (_epub is not null)
+        {
+            <p>Epub detected: @_epub.Name</p>
+        }
+        @if (_xml is not null)
+        {
+            <p>XML annotations detected: @_xml.Name</p>
+        }
+    </MudItem>
+</MudGrid>
