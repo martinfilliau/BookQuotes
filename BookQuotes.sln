@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookQuotes.Application", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookQuotes.Infrastructure", "BookQuotes.Infrastructure\BookQuotes.Infrastructure.csproj", "{09ED72FB-3803-4174-867B-6B60776749DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookQuotes.Infrastructure.Tests", "BookQuotes.Infrastructure.Tests\BookQuotes.Infrastructure.Tests.csproj", "{34959541-007F-4BF2-9C9D-7FA7FF04AD6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{09ED72FB-3803-4174-867B-6B60776749DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09ED72FB-3803-4174-867B-6B60776749DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09ED72FB-3803-4174-867B-6B60776749DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34959541-007F-4BF2-9C9D-7FA7FF04AD6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34959541-007F-4BF2-9C9D-7FA7FF04AD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34959541-007F-4BF2-9C9D-7FA7FF04AD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34959541-007F-4BF2-9C9D-7FA7FF04AD6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

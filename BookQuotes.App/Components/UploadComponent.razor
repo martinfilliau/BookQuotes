@@ -11,12 +11,16 @@
         </MudFileUpload>       
     </MudItem>
     <MudItem xs="6">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!_canStartAnalysis">Start</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   OnClick="StartAnalysis"
+                   Disabled="!_canStartAnalysis"
+                   >Start</MudButton>
     </MudItem>
     <MudItem xs="6">
         <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
     </MudItem>
-    <MudItem xs="6">
+    <MudItem xs="12">
         @if (_epub is not null)
         {
             <p>Epub detected: @_epub.Name</p>
@@ -25,5 +29,8 @@
         {
             <p>XML annotations detected: @_xml.Name</p>
         }
+    </MudItem>
+    <MudItem xs="12">
+        @output
     </MudItem>
 </MudGrid>

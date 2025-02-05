@@ -5,8 +5,11 @@ namespace BookQuotes.Infrastructure.Parsers;
 
 public class XmlAnnotationsParser
 {
-    public static Book Parse(string xmlData)
+    public static Book? Parse(string xmlData)
     {
+        if (string.IsNullOrWhiteSpace(xmlData))
+            return null;
+        
         var bookTitle = "";
         var author = "";
         var quotes = new List<Quote>();

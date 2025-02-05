@@ -2,7 +2,6 @@ using BookQuotes.Application.Commands;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using VersOne.Epub;
 
 namespace BookQuotes.App.Components;
 
@@ -17,6 +16,8 @@ public partial class UploadComponent : ComponentBase
     private IBrowserFile? _epub;
     private IBrowserFile? _xml;
     private bool _canStartAnalysis = false;
+
+    private string output = "";
     
     private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)
     {
@@ -51,34 +52,28 @@ public partial class UploadComponent : ComponentBase
         _xml = null;
     }
 
-    private async Task HandleFile(IBrowserFile file)
-    {
-        if (IsEpubFile(file))
-        {
-            await using var stream = file.OpenReadStream(MaxFileSize);
-            using var ms = new MemoryStream();
-            await stream.CopyToAsync(ms);
-            using var book = await EpubReader.OpenBookAsync(ms);
-             
-        }
-        else if (IsAnnotationsFile(file))
-        {
-            
-        }
-    }
-
     async Task StartAnalysis()
     {
         if (!_canStartAnalysis)
             return;
         
-        // XXX TODO check epub is not null
-        
-        await using var stream = _epub.OpenReadStream(MaxFileSize);
-        using var ms = new MemoryStream();
-        await stream.CopyToAsync(ms);
+        if (_epub != null)
+        {
+            await using var stream = _epub.OpenReadStream(MaxFileSize);
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+ 
+            var result = await AnalyseEpubFile.Analyse(ms);
+        }
 
-        var result = await AnalyseEpubFile.Analyse(ms);
+        if (_xml != null)
+        {
+            using var reader = new StreamReader(_xml.OpenReadStream());
+            var text = await reader.ReadToEndAsync();
+            var quotes = AnalyseQuotes.Analyse(text);
+
+            output = string.Join(',', quotes.Select(quote => quote.Comment));
+        }
     }
     
     private static bool IsEpubFile(IBrowserFile file) => file.ContentType == "application/epub+zip" || file.Name.EndsWith(".epub");
