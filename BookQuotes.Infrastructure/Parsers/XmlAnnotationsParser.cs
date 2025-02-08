@@ -3,8 +3,11 @@ using BookQuotes.Domain.Entities;
 
 namespace BookQuotes.Infrastructure.Parsers;
 
-public class XmlAnnotationsParser
+public static class XmlAnnotationsParser
 {
+    static XNamespace dc = "http://purl.org/dc/elements/1.1/";
+    static XNamespace ns = "http://ns.adobe.com/digitaleditions/annotations";
+
     public static Book? Parse(string xmlData)
     {
         if (string.IsNullOrWhiteSpace(xmlData))
@@ -15,8 +18,6 @@ public class XmlAnnotationsParser
         var quotes = new List<Quote>();
         
         var doc = XDocument.Parse(xmlData);
-        XNamespace dc = "http://purl.org/dc/elements/1.1/";
-        XNamespace ns = "http://ns.adobe.com/digitaleditions/annotations";
 
         // Extract publication details
         XElement? publication = doc?.Root?.Element(ns + "publication");
@@ -37,17 +38,20 @@ public class XmlAnnotationsParser
                 Author = author,
                 Quotes = []
             };
+        
         foreach (var annotation in annotations)
         {
             var fragment = annotation.Element(ns + "target")?.Element(ns + "fragment");
-            if (fragment != null)
+            
+            if (fragment == null) continue;
+            
+            var comment = fragment.Element(ns + "text")?.Value ?? "";
+                
+            quotes.Add(new Quote
             {
-               quotes.Add(new Quote
-                {
-                    Comment = fragment.Element(ns + "text")?.Value ?? "",
-                    Position = annotation.Element(dc + "identifier")?.Value ?? ""
-                });
-            }
+                Comment = ValueCleaner.CleanupValue(comment),
+                Position = fragment.Attribute("start")?.Value ?? "",
+            });
         }
 
         return new Book

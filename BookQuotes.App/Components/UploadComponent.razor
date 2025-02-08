@@ -31,6 +31,9 @@
         }
     </MudItem>
     <MudItem xs="12">
-        @output
+        @foreach (var quote in _quotes)
+        {
+            <QuoteComponent Quote="quote"></QuoteComponent>
+        }
     </MudItem>
 </MudGrid>

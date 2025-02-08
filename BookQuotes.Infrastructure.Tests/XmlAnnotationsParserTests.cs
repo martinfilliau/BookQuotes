@@ -96,5 +96,9 @@ public class XmlAnnotationsParserTests
             result.Title);
         Assert.Equal("Nick Tune", result.Author);
         Assert.Equal(2, result.Quotes.Count);
+        var firstQuote = result.Quotes[0];
+        Assert.Equal("OEBPS/Text/07.htm#point(/1/4/184/8:228)", firstQuote.Position);
+        Assert.Equal("One way to check if you have suitable pivotal events is to ask: Do the pivotal events alone tell the high-level story of the domain?",
+            firstQuote.Comment);
     }
 }

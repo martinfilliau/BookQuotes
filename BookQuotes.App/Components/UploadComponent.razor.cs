@@ -1,4 +1,5 @@
 using BookQuotes.Application.Commands;
+using BookQuotes.Domain.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -17,7 +18,7 @@ public partial class UploadComponent : ComponentBase
     private IBrowserFile? _xml;
     private bool _canStartAnalysis = false;
 
-    private string output = "";
+    private List<Quote> _quotes = [];
     
     private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)
     {
@@ -70,9 +71,7 @@ public partial class UploadComponent : ComponentBase
         {
             using var reader = new StreamReader(_xml.OpenReadStream());
             var text = await reader.ReadToEndAsync();
-            var quotes = AnalyseQuotes.Analyse(text);
-
-            output = string.Join(',', quotes.Select(quote => quote.Comment));
+            _quotes = AnalyseQuotes.Analyse(text);
         }
     }
     
