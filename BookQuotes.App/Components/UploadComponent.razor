@@ -15,10 +15,12 @@
                    Color="Color.Primary"
                    OnClick="StartAnalysis"
                    Disabled="!_canStartAnalysis"
+                   StartIcon="@Icons.Material.Filled.PlayArrow"
+                   Style="margin-right: 10px"
                    >Start</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
     </MudItem>
     <MudItem xs="6">
-        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
     </MudItem>
     <MudItem xs="12">
         @if (_epub is not null)
@@ -31,9 +33,9 @@
         }
     </MudItem>
     <MudItem xs="12">
-        @foreach (var quote in _quotes)
+        @if (_book is not null)
         {
-            <QuoteComponent Quote="quote"></QuoteComponent>
+            <BookComponent Book="@_book"></BookComponent>
         }
     </MudItem>
 </MudGrid>

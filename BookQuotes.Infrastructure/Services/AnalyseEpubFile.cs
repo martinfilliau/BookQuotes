@@ -6,7 +6,7 @@ namespace BookQuotes.Infrastructure.Services;
 
 public class AnalyseEpubFile : IAnalyseEpubFile
 {
-    public async Task<Book> Analyse(Stream stream)
+    public async Task<Book?> Analyse(Stream stream)
     {
         var parser = new EpubParser();
         var book = await parser.Parse(stream);

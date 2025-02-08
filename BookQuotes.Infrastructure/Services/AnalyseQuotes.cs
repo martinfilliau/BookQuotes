@@ -6,9 +6,8 @@ namespace BookQuotes.Infrastructure.Services;
 
 public class AnalyseQuotes : IAnalyseQuotes
 {
-    public List<Quote> Analyse(string xml)
+    public Book? Analyse(string xml)
     {
-        var book = XmlAnnotationsParser.Parse(xml);
-        return book.Quotes;
+        return XmlAnnotationsParser.Parse(xml);
     }
 }

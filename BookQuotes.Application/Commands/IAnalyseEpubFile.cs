@@ -4,5 +4,5 @@ namespace BookQuotes.Application.Commands;
 
 public interface IAnalyseEpubFile
 {
-    Task<Book> Analyse(Stream stream);
+    Task<Book?> Analyse(Stream stream);
 }

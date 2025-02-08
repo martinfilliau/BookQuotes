@@ -4,5 +4,6 @@ public record Book()
 {
     public required string Title;
     public required string Author;
-    public required List<Quote> Quotes;
-};
+    public List<Quote> Quotes = [];
+    public TableOfContents? TableOfContents;
+}

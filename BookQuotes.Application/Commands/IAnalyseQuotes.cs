@@ -4,5 +4,5 @@ namespace BookQuotes.Application.Commands;
 
 public interface IAnalyseQuotes
 {
-    List<Quote> Analyse(string xml);
+    Book? Analyse(string xml);
 }

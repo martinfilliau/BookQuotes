@@ -18,7 +18,7 @@ public partial class UploadComponent : ComponentBase
     private IBrowserFile? _xml;
     private bool _canStartAnalysis = false;
 
-    private List<Quote> _quotes = [];
+    private Book? _book;
     
     private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)
     {
@@ -51,6 +51,7 @@ public partial class UploadComponent : ComponentBase
         _canStartAnalysis = false;
         _epub = null;
         _xml = null;
+        _book = null;
     }
 
     async Task StartAnalysis()
@@ -65,13 +66,14 @@ public partial class UploadComponent : ComponentBase
             await stream.CopyToAsync(ms);
  
             var result = await AnalyseEpubFile.Analyse(ms);
+            _book = result;
         }
 
         if (_xml != null)
         {
             using var reader = new StreamReader(_xml.OpenReadStream());
             var text = await reader.ReadToEndAsync();
-            _quotes = AnalyseQuotes.Analyse(text);
+            _book = AnalyseQuotes.Analyse(text);
         }
     }
     
