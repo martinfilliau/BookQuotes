@@ -11,4 +11,6 @@ builder.Services.AddMudServices();
 
 builder.AddInfrastructureServices();
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+
+await app.RunAsync();
