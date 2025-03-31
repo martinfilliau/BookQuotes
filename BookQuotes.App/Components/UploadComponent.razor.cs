@@ -1,3 +1,5 @@
+using System.Text;
+using BookQuotes.App.Services;
 using BookQuotes.Application.Commands;
 using BookQuotes.Domain.Entities;
 using Microsoft.AspNetCore.Components;
@@ -11,14 +13,20 @@ public partial class UploadComponent : ComponentBase
     [Inject] IDialogService DialogService { get; set; }
     [Inject] IAnalyseEpubFile AnalyseEpubFile { get; set; }
     [Inject] IAnalyseQuotes AnalyseQuotes { get; set; }
+    [Inject] IExportQuotes ExportQuotes { get; set; }
+    [Inject] IPreviewMarkdown PreviewMarkdown { get; set; }
+    [Inject] FileDownloaderService FileDownloaderService { get; set; }
 
     private const int MaxFileSize = 30000000; // 30 MB
 
     private IBrowserFile? _epub;
     private IBrowserFile? _xml;
     private bool _canStartAnalysis = false;
+    private string _exportedMarkdown = "";
 
     private Book? _book;
+    
+    private bool CanExportQuotes => _book is not null && _book.Quotes.Count > 0;
     
     private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)
     {
@@ -75,6 +83,16 @@ public partial class UploadComponent : ComponentBase
             var text = await reader.ReadToEndAsync();
             _book = AnalyseQuotes.Analyse(text);
         }
+    }
+
+    async Task ExportQuotesMarkdown()
+    {
+        if (_book == null)
+            return;
+        var markdown = ExportQuotes.ExportQuotesToMarkdown(_book, _book.Quotes);
+        _exportedMarkdown = PreviewMarkdown.ExportMarkdownToHtml(markdown);
+        using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(markdown));
+        await FileDownloaderService.DownloadFileAsync($"{_book.Title} - quotes.md", memoryStream, "text/plain");
     }
     
     private static bool IsEpubFile(IBrowserFile file) => file.ContentType == "application/epub+zip" || file.Name.EndsWith(".epub");

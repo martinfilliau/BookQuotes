@@ -23,7 +23,7 @@ public class TableOfContents
         }
     }
 
-    public TableOfContentsItem? GetItem(string id) => _items.TryGetValue(id, out var item) ? item : null;
+    public TableOfContentsItem? GetItem(string id) => _items.GetValueOrDefault(id);
    
     public List<string> GetTableOfContentsAsArray()
     {
@@ -35,12 +35,12 @@ public class TableOfContents
         return result;
     }
 
-    private void PopulateArray(TableOfContentsItem item, int depth, List<string> result)
+    private static void PopulateArray(TableOfContentsItem item, int depth, List<string> result, char separator = ' ')
     {
-        result.Add($"{new string(' ', depth * 2)}- {item.Title} (Page: {item.PageReference ?? "N/A"})");
+        result.Add($"{new string(separator, depth * 2)}- {item.Title} (Page: {item.PageReference ?? "N/A"})");
         foreach (var subItem in item.SubItems)
         {
-            PopulateArray(subItem, depth + 1, result);
+            PopulateArray(subItem, depth + 1, result, separator);
         }
     }
 }

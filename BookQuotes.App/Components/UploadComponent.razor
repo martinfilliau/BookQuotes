@@ -19,6 +19,7 @@
                    Style="margin-right: 10px"
                    >Start</MudButton>
         <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!CanExportQuotes" OnClick="ExportQuotesMarkdown">Export quotes</MudButton>
     </MudItem>
     <MudItem xs="6">
     </MudItem>
@@ -38,4 +39,12 @@
             <BookComponent Book="@_book"></BookComponent>
         }
     </MudItem>
+    @if (!string.IsNullOrWhiteSpace(_exportedMarkdown))
+    {
+        <MudItem xs="12">
+            <p>Preview exported Markdown:</p>
+            
+            @((MarkupString)_exportedMarkdown)
+        </MudItem>
+    }
 </MudGrid>
