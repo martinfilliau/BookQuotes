@@ -12,9 +12,8 @@
 
     <ItemGroup>
       <PackageReference Include="Grynwald.MarkdownGenerator" Version="3.0.106" />
-      <PackageReference Include="Markdig" Version="0.40.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.3" />
-      <PackageReference Include="VersOne.Epub" Version="3.3.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.4" />
+      <PackageReference Include="VersOne.Epub" Version="3.3.4" />
     </ItemGroup>
 
 </Project>
