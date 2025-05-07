@@ -18,7 +18,7 @@ public class ExportQuotes : IExportQuotes
         
         foreach (var quote in quotes)
         {
-            document.Root.Add(new MdParagraph(quote.Comment));
+            document.Root.Add(new MdBlockQuote(quote.Comment));
         }
        
         return document.ToString();
