@@ -94,7 +94,7 @@ public partial class UploadComponent : ComponentBase
     
     private static bool IsEpubFile(IBrowserFile file) => file.ContentType == "application/epub+zip" || file.Name.EndsWith(".epub");
     
-    private static bool IsAnnotationsFile(IBrowserFile file) => file.Name.EndsWith(".xml");
+    private static bool IsAnnotationsFile(IBrowserFile file) => file.Name.EndsWith(".xml") || file.Name.EndsWith(".annot");
 
     private async Task UnknownFile(IBrowserFile file)
     {
