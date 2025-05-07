@@ -39,12 +39,4 @@
             <BookComponent Book="@_book"></BookComponent>
         }
     </MudItem>
-    @if (!string.IsNullOrWhiteSpace(_exportedMarkdown))
-    {
-        <MudItem xs="12">
-            <p>Preview exported Markdown:</p>
-            
-            @((MarkupString)_exportedMarkdown)
-        </MudItem>
-    }
 </MudGrid>

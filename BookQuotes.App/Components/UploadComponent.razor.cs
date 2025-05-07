@@ -14,7 +14,6 @@ public partial class UploadComponent : ComponentBase
     [Inject] IAnalyseEpubFile AnalyseEpubFile { get; set; }
     [Inject] IAnalyseQuotes AnalyseQuotes { get; set; }
     [Inject] IExportQuotes ExportQuotes { get; set; }
-    [Inject] IPreviewMarkdown PreviewMarkdown { get; set; }
     [Inject] FileDownloaderService FileDownloaderService { get; set; }
 
     private const int MaxFileSize = 30000000; // 30 MB
@@ -22,7 +21,6 @@ public partial class UploadComponent : ComponentBase
     private IBrowserFile? _epub;
     private IBrowserFile? _xml;
     private bool _canStartAnalysis = false;
-    private string _exportedMarkdown = "";
 
     private Book? _book;
     
@@ -90,7 +88,6 @@ public partial class UploadComponent : ComponentBase
         if (_book == null)
             return;
         var markdown = ExportQuotes.ExportQuotesToMarkdown(_book, _book.Quotes);
-        _exportedMarkdown = PreviewMarkdown.ExportMarkdownToHtml(markdown);
         using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(markdown));
         await FileDownloaderService.DownloadFileAsync($"{_book.Title} - quotes.md", memoryStream, "text/plain");
     }
@@ -101,10 +98,7 @@ public partial class UploadComponent : ComponentBase
 
     private async Task UnknownFile(IBrowserFile file)
     {
-        var parameters = new DialogParameters<AlertDialogComponent>()
-        {
-            { d => d.Message, $"File {file.Name} is not an epub file nor an XML (annotations) file." }
-        };
-        await DialogService.ShowAsync<AlertDialogComponent>("Alert", parameters);
+        await DialogService.ShowMessageBox("Alert",
+            $"File {file.Name} is not an epub file nor an XML (annotations) file.");
     }
 }
