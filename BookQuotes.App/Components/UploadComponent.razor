@@ -1,23 +1,28 @@
 <MudGrid>
     <MudItem xs="12">
-        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="UploadFiles"
-                       Accept=".epub,.xml,.annot" AppendMultipleFiles="true">
-            <ActivatorContent>
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.CloudUpload">
-                    Upload Epub or XML files with annotations
-                </MudButton>
-            </ActivatorContent>
-        </MudFileUpload>       
-    </MudItem>
-    <MudItem xs="6">
-        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Reset">Reset</MudButton>
+        <MudStack Row="true" Spacing="6">
+            <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="UploadFiles"
+                           Accept=".epub,.xml,.annot" AppendMultipleFiles="false">
+                <ActivatorContent>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.CloudUpload">
+                        Upload Epub or XML files with annotations
+                    </MudButton>
+                </ActivatorContent>
+            </MudFileUpload>
+            <MudSpacer />
+            <MudButton Variant="Variant.Filled" Color="Color.Secondary"
+                       Disabled="Books.Count == 0"
+                       OnClick="Reset">Reset</MudButton>
+        </MudStack>
     </MudItem>
     <MudItem xs="12">
+        <MudStack Spacing="4">
         @foreach (var book in Books)
         {
             <BookComponent Book="@book"></BookComponent>
         }
+        </MudStack>
     </MudItem>
 </MudGrid>

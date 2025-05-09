@@ -5,5 +5,5 @@ namespace BookQuotes.App.Components;
 
 public partial class QuoteComponent
 {
-    [Parameter] public Quote Quote { get; set; }
+    [Parameter] public required Quote Quote { get; set; }
 }
