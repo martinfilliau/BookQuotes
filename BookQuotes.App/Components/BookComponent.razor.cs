@@ -10,7 +10,7 @@ public partial class BookComponent : ComponentBase
 {
     [Parameter] public Book Book { get; set; }
 
-    [Inject] IExportQuotes ExportQuotes { get; set; }
+    [Inject] IExportBook ExportBook { get; set; }
     [Inject] FileDownloaderService FileDownloaderService { get; set; }
     
     List<string> TocItems =>
@@ -20,7 +20,7 @@ public partial class BookComponent : ComponentBase
 
     private async Task ExportQuotesMarkdown()
     {
-        var markdown = ExportQuotes.ExportQuotesToMarkdown(Book, Book.Quotes);
+        var markdown = ExportBook.ExportToMarkdown(Book);
         using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(markdown));
         await FileDownloaderService.DownloadFileAsync($"{Book.Title} - quotes.md", memoryStream, "text/plain");
     }
