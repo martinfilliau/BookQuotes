@@ -9,9 +9,9 @@ namespace BookQuotes.App.Components;
 public partial class UploadComponent : ComponentBase
 {
     private const int MaxFileSize = 30000000; // 30 MB
-    [Inject] private IDialogService DialogService { get; set; }
-    [Inject] private IAnalyseEpubFile AnalyseEpubFile { get; set; }
-    [Inject] private IAnalyseQuotes AnalyseQuotes { get; set; }
+    [Inject] private IDialogService DialogService { get; set; } = null!;
+    [Inject] private IAnalyseEpubFile AnalyseEpubFile { get; set; } = null!;
+    [Inject] private IAnalyseQuotes AnalyseQuotes { get; set; } = null!;
 
     private List<Book> Books { get; set; } = new();
 

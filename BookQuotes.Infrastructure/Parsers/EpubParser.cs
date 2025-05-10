@@ -20,9 +20,13 @@ public class EpubParser
         var author = book.Author;
 
         _tableOfContents.AddItem("ROOT", title);
-        foreach (var navigationItem in await book.GetNavigationAsync())
+        var items = await book.GetNavigationAsync();
+        if (items != null)
         {
-            AddNavigationItem(navigationItem, 0, "ROOT");
+            foreach (var navigationItem in items)
+            {
+                AddNavigationItem(navigationItem, 0, "ROOT");
+            }
         }
 
         return new Book

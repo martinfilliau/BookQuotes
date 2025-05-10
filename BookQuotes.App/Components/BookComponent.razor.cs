@@ -8,11 +8,11 @@ namespace BookQuotes.App.Components;
 
 public partial class BookComponent : ComponentBase
 {
-    [Parameter] public Book Book { get; set; }
+    [Parameter] public required Book Book { get; set; }
 
-    [Inject] IExportBook ExportBook { get; set; }
-    [Inject] FileDownloaderService FileDownloaderService { get; set; }
-    
+    [Inject] IExportBook ExportBook { get; set; } = null!;
+    [Inject] FileDownloaderService FileDownloaderService { get; set; } = null!;
+
     List<string> TocItems =>
         Book?.TableOfContents == null
             ? []
