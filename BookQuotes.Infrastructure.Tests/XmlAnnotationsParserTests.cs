@@ -9,7 +9,7 @@ public class XmlAnnotationsParserTests
     [InlineData("")]
     [InlineData("  ")]
     [InlineData(null)]
-    public void Test_Null_Empty_Xml(string value)
+    public void Test_Null_Empty_Xml(string? value)
     {
         var result = XmlAnnotationsParser.Parse(value);
         Assert.Null(result);

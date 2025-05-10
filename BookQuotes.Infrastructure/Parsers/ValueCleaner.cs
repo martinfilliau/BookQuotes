@@ -6,7 +6,7 @@ public static partial class ValueCleaner
 {
     private static readonly Regex LineBreaksRegex = LineBreaksOrMultipleSpacesDetectionRegex();
 
-    public static string CleanupValue(string input)
+    public static string? CleanupValue(string? input)
     {
         if (string.IsNullOrEmpty(input)) return input;
 

@@ -9,7 +9,7 @@ public static class XmlAnnotationsParser
     private static readonly XNamespace Ns = "http://ns.adobe.com/digitaleditions/annotations";
     private static readonly XNamespace Dc = "http://purl.org/dc/elements/1.1/";
 
-    public static Book? Parse(string xmlData)
+    public static Book? Parse(string? xmlData)
     {
         if (string.IsNullOrWhiteSpace(xmlData))
             return null;
@@ -65,7 +65,7 @@ public static class XmlAnnotationsParser
 
         return new Quote
         {
-            Comment = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? ""),
+            Comment = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? "") ?? "XX",
             Position = fragment.Attribute("start")?.Value ?? ""
         };
     }

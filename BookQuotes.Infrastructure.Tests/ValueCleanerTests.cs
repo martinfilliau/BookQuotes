@@ -14,7 +14,7 @@ public class ValueCleanerTests
     [InlineData("   Mixed \n cases \r\n here   ", "Mixed cases here")]
     [InlineData("", "")]
     [InlineData(null, null)]
-    public void CleanupValue_ShouldRemoveLineBreaks_AndTrimSpaces(string input, string expected)
+    public void CleanupValue_ShouldRemoveLineBreaks_AndTrimSpaces(string? input, string? expected)
     {
         // Act
         var result = ValueCleaner.CleanupValue(input);
