@@ -99,22 +99,14 @@ public partial class UploadComponent : ComponentBase
     }
 
     private static bool IsEpubFile(IBrowserFile file)
-    {
-        return file.ContentType == "application/epub+zip" || file.Name.EndsWith(".epub");
-    }
+        => file.ContentType == "application/epub+zip" || file.Name.EndsWith(".epub");
 
     private static bool IsAnnotationsFile(IBrowserFile file)
-    {
-        return file.Name.EndsWith(".xml") || file.Name.EndsWith(".annot");
-    }
+        => file.Name.EndsWith(".xml") || file.Name.EndsWith(".annot");
 
     private async Task UnknownFile(IBrowserFile file)
-    {
-        await ShowMessageBox("Alert", $"File {file.Name} is not an epub file nor an XML (annotations) file.");
-    }
+        => await ShowMessageBox("Alert", $"File {file.Name} is not an epub file nor an XML (annotations) file.");
 
     private async Task ShowMessageBox(string title, string message)
-    {
-        await DialogService.ShowMessageBox(title, message);
-    }
+        => await DialogService.ShowMessageBox(title, message);
 }

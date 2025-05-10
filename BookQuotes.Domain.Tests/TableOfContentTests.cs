@@ -47,10 +47,10 @@ public class TableOfContentTests
         // Assert
         var expected = new List<string>
         {
-            "- Chapter 1 (Page: 1)",
-            "  - Section 1.1 (Page: 2)",
-            "    - Subsection 1.1.1 (Page: 3)",
-            "  - Section 1.2 (Page: 4)"
+            "- Chapter 1",
+            "  - Section 1.1",
+            "    - Subsection 1.1.1",
+            "  - Section 1.2"
         };
 
         Assert.Equal(expected, result);
@@ -71,7 +71,7 @@ public class TableOfContentTests
         // Assert
         var expected = new List<string>
         {
-            "- Chapter 1 (Page: 1)"
+            "- Chapter 1"
         };
 
         Assert.Equal(expected, result);

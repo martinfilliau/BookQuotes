@@ -33,9 +33,10 @@ public class EpubParser
         };
     }
     
-    private void AddNavigationItem(EpubNavigationItemRef item, int identLevel, string parentId = null)
+    private void AddNavigationItem(EpubNavigationItemRef item, int identLevel, string? parentId = null)
     {
-        var id = item.HtmlContentFileRef?.FilePath ?? $"X{identLevel}";
+        var filePath = item.HtmlContentFileRef?.FilePath ?? $"X{identLevel}";
+        var id = GetId(filePath) ?? filePath;
         _tableOfContents.AddItem(id,
             item.Title,
             item.Link?.ContentFileUrl,
@@ -44,5 +45,13 @@ public class EpubParser
         {
             AddNavigationItem(nestedNavigationItemRef, identLevel + 1, id);
         }
+    }
+    
+    private static string? GetId(string fileUrl)
+    {
+        if (string.IsNullOrEmpty(fileUrl)) return null;
+        
+        var parts = fileUrl.Split('/');
+        return parts.LastOrDefault();
     }
 }

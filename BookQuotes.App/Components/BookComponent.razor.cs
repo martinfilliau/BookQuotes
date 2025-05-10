@@ -18,10 +18,15 @@ public partial class BookComponent : ComponentBase
             ? []
             : Book.TableOfContents.GetTableOfContentsAsArray();
 
+    protected override void OnParametersSet()
+    {
+        Book?.UpdateQuotesWithTableOfContents();
+    }
+
     private async Task ExportQuotesMarkdown()
     {
         var markdown = ExportBook.ExportToMarkdown(Book);
         using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(markdown));
-        await FileDownloaderService.DownloadFileAsync($"{Book.Title} - quotes.md", memoryStream, "text/plain");
+        await FileDownloaderService.DownloadFileAsync($"{Book.Title}.md", memoryStream, "text/plain");
     }
 }

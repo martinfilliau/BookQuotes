@@ -21,7 +21,16 @@ public class ExportBook : IExportBook
             
             foreach (var quote in book.Quotes)
             {
-                document.Root.Add(new MdBlockQuote(quote.Comment));
+                var reference = quote.Reference?.Title;
+                if (string.IsNullOrWhiteSpace(reference))
+                {
+                    document.Root.Add(new MdBlockQuote(quote.Comment));
+                }
+                else
+                {
+                    var content = $"{quote.Comment} -- {reference}";
+                    document.Root.Add(new MdBlockQuote(content));
+                }
             }
         }
 

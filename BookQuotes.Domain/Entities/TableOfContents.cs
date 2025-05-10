@@ -11,7 +11,7 @@ public class TableOfContents
     public void AddItem(string id, string title, string? pageReference = null, string? parentId = null)
     {
         var newItem = new TableOfContentsItem(id, title, pageReference);
-        _items[id] = newItem;
+        _items.TryAdd(id, newItem);
 
         if (parentId == null)
         {
@@ -37,7 +37,7 @@ public class TableOfContents
 
     private static void PopulateArray(TableOfContentsItem item, int depth, List<string> result, char separator = ' ')
     {
-        result.Add($"{new string(separator, depth * 2)}- {item.Title} (Page: {item.PageReference ?? "N/A"})");
+        result.Add($"{new string(separator, depth * 2)}- {item.Title}");
         foreach (var subItem in item.SubItems)
         {
             PopulateArray(subItem, depth + 1, result, separator);

@@ -22,12 +22,16 @@
 
         @if (@TocItems.Count > 0)
         {
-            <h4>Table of content</h4>
+            <br />
+            <MudText Typo="Typo.h5">Table of content</MudText>
+            <br />
 
+            <MudStack Spacing="4">
             @foreach (var item in @TocItems)
             {
-                <p>@item</p>
+                <MudText Typo="Typo.body1">@item</MudText>
             }
+            </MudStack>
         }
     </MudCardContent>
 </MudCard>
