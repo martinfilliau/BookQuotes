@@ -19,17 +19,22 @@ public class ExportBook : IExportBook
         {
             document.Root.Add(new MdHeading("Quotes", 2));
             
-            foreach (var quote in book.Annotations)
+            foreach (var annotation in book.Annotations)
             {
-                var reference = quote.Reference?.Title;
+                var reference = annotation.Reference?.Title;
                 if (string.IsNullOrWhiteSpace(reference))
                 {
-                    document.Root.Add(new MdBlockQuote(quote.Quote));
+                    document.Root.Add(new MdBlockQuote(annotation.Quote));
                 }
                 else
                 {
-                    var content = $"{quote.Quote} -- {reference}";
+                    var content = $"{annotation.Quote} -- {reference}";
                     document.Root.Add(new MdBlockQuote(content));
+                }
+
+                if (!string.IsNullOrWhiteSpace(annotation.Comment))
+                {
+                    document.Root.Add(new MdParagraph(annotation.Comment));
                 }
             }
         }

@@ -100,6 +100,47 @@ public class XmlAnnotationsParserTests
         Assert.Equal("OEBPS/Text/07.htm#point(/1/4/184/8:228)", firstQuote.Position);
         Assert.Null(firstQuote.Comment);
         Assert.Equal("One way to check if you have suitable pivotal events is to ask: Do the pivotal events alone tell the high-level story of the domain?",
-            firstQuote.Comment);
+            firstQuote.Quote);
+    }
+    
+    [Fact]
+    public void Test_Xml_With_Quote_And_Comment()
+    {
+        const string input =
+            @"<annotationSet xmlns:xhtml=""http://www.w3.org/1999/xhtml"" xmlns:dc=""http://purl.org/dc/elements/1.1/"" xmlns=""http://ns.adobe.com/digitaleditions/annotations"">
+        <publication>
+            <dc:identifier>amnt</dc:identifier>
+            <dc:title>Architecture Modernization: Socio-technical alignment of software, strategy, and structure</dc:title>
+            <dc:creator>Nick Tune</dc:creator>
+            <dc:language>en</dc:language>
+        </publication>
+        <annotation>
+            <dc:identifier>urn:uuid:7fbad2bc-6a03-4e31-9ced-b1a6a39d4f0f</dc:identifier>
+            <dc:date>2024-08-09T07:58:08Z</dc:date>
+            <dc:creator>urn:uuid:156adb1c-9d3a-4a2d-830a-63a9831c5a7c</dc:creator>
+            <target>
+                <fragment start=""OEBPS/Text/08.htm#point(/1/4/91:4)"" end=""OEBPS/Text/08.htm#point(/1/4/92/2:154)"" progress=""0.35914"" color=""4"">
+                    <text>Sometimes, engineers don’t talk to users because of cultural perspectives. For instance, their only value is perceived as sitting at their desks coding.</text>
+                </fragment>
+            </target>
+            <content>
+                <dc:date>2025-06-03T07:26:09Z</dc:date>
+                <text>Teach the Plan phase with PISCAR (PDCA)</text>
+            </content>
+        </annotation>
+    </annotationSet>";
+
+        var result = XmlAnnotationsParser.Parse(input);
+
+        Assert.NotNull(result);
+        Assert.Equal("Architecture Modernization: Socio-technical alignment of software, strategy, and structure",
+            result.Title);
+        Assert.Equal("Nick Tune", result.Author);
+        Assert.Single(result.Annotations);
+        var firstQuote = result.Annotations[0];
+        Assert.Equal("OEBPS/Text/08.htm#point(/1/4/91:4)", firstQuote.Position);
+        Assert.Equal("Sometimes, engineers don’t talk to users because of cultural perspectives. For instance, their only value is perceived as sitting at their desks coding.", firstQuote.Quote);
+        Assert.NotNull(firstQuote.Comment);
+        Assert.Equal("Teach the Plan phase with PISCAR (PDCA)", firstQuote.Comment);
     }
 }

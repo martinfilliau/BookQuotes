@@ -63,9 +63,13 @@ public static class XmlAnnotationsParser
         var fragment = annotation.Element(Ns + "target")?.Element(Ns + "fragment");
         if (fragment is null) return null;
 
+        var content = annotation.Element(Ns + "content");
+        var comment = ValueCleaner.CleanupValue(content?.Element(Ns + "text")?.Value ?? null);
+        
         return new Annotation
         {
-            Quote = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? "") ?? "XX",
+            Comment  = comment,
+            Quote    = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? "") ?? "XX",
             Position = fragment.Attribute("start")?.Value ?? ""
         };
     }

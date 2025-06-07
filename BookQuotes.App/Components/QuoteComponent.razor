@@ -1,4 +1,8 @@
 <MudText>
     @Annotation.Quote
     <MudText Typo="Typo.caption">@Annotation.Reference?.Title</MudText>
+    @if (Annotation.Comment != null)
+    {
+        <MudText><MudIcon Icon="@Icons.Material.Filled.ArrowCircleRight" />&nbsp;@Annotation.Comment</MudText>
+    }
 </MudText>
