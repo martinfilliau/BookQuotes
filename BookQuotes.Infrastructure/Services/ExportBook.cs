@@ -15,20 +15,20 @@ public class ExportBook : IExportBook
         
         document.Root.Add(new MdParagraph(book.Author));
 
-        if (includeQuotes && book.Quotes.Count > 0)
+        if (includeQuotes && book.Annotations.Count > 0)
         {
             document.Root.Add(new MdHeading("Quotes", 2));
             
-            foreach (var quote in book.Quotes)
+            foreach (var quote in book.Annotations)
             {
                 var reference = quote.Reference?.Title;
                 if (string.IsNullOrWhiteSpace(reference))
                 {
-                    document.Root.Add(new MdBlockQuote(quote.Comment));
+                    document.Root.Add(new MdBlockQuote(quote.Quote));
                 }
                 else
                 {
-                    var content = $"{quote.Comment} -- {reference}";
+                    var content = $"{quote.Quote} -- {reference}";
                     document.Root.Add(new MdBlockQuote(content));
                 }
             }

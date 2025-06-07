@@ -80,7 +80,7 @@ public partial class UploadComponent : ComponentBase
             var index = Books.FindIndex(b => b.Title == bookQuotes.Title);
             if (index >= 0)
             {
-                Books[index] = Books[index] with { Quotes = bookQuotes.Quotes };
+                Books[index] = Books[index] with { Annotations = bookQuotes.Annotations };
             }
             else
             {

@@ -8,14 +8,14 @@
             <MudIconButton Icon="@Icons.Material.Filled.Download"
                            Color="Color.Default"
                            OnClick="ExportQuotesMarkdown"
-                           Disabled="Book.Quotes.Count == 0" />
+                           Disabled="Book.Annotations.Count == 0" />
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
         <MudStack Spacing="4">
-        @foreach (var quote in @Book.Quotes)
+        @foreach (var quote in @Book.Annotations)
         {
-            <QuoteComponent Quote="quote"></QuoteComponent>
+            <QuoteComponent Annotation="quote"></QuoteComponent>
         }
         </MudStack>
 

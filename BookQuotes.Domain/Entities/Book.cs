@@ -4,7 +4,7 @@ public record Book
 {
     public required string Title;
     public required string Author;
-    public List<Quote> Quotes = [];
+    public List<Annotation> Annotations = [];
     public TableOfContents? TableOfContents;
 
     /// <summary>
@@ -13,9 +13,9 @@ public record Book
     public void UpdateQuotesWithTableOfContents()
     {
         if (TableOfContents == null) return;
-        if (Quotes.Count == 0) return;
+        if (Annotations.Count == 0) return;
         
-        foreach (var quote in Quotes)
+        foreach (var quote in Annotations)
         {
             var position = quote.Position;
             var id = position

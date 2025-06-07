@@ -52,11 +52,11 @@ public class XmlAnnotationsParserTests
         Assert.NotNull(result);
         Assert.Equal("Samouraï", result.Title);
         Assert.Equal("Fabrice Caro", result.Author);
-        Assert.Empty(result.Quotes);
+        Assert.Empty(result.Annotations);
     }
 
     [Fact]
-    public void Test_Xml_With_Quotes()
+    public void Test_Xml_With_Quotes_But_No_Comment()
     {
         const string input =
             @"<annotationSet xmlns:xhtml=""http://www.w3.org/1999/xhtml"" xmlns:dc=""http://purl.org/dc/elements/1.1/"" xmlns=""http://ns.adobe.com/digitaleditions/annotations"">
@@ -95,9 +95,10 @@ public class XmlAnnotationsParserTests
         Assert.Equal("Architecture Modernization: Socio-technical alignment of software, strategy, and structure",
             result.Title);
         Assert.Equal("Nick Tune", result.Author);
-        Assert.Equal(2, result.Quotes.Count);
-        var firstQuote = result.Quotes[0];
+        Assert.Equal(2, result.Annotations.Count);
+        var firstQuote = result.Annotations[0];
         Assert.Equal("OEBPS/Text/07.htm#point(/1/4/184/8:228)", firstQuote.Position);
+        Assert.Null(firstQuote.Comment);
         Assert.Equal("One way to check if you have suitable pivotal events is to ask: Do the pivotal events alone tell the high-level story of the domain?",
             firstQuote.Comment);
     }

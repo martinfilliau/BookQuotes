@@ -1,8 +1,16 @@
 namespace BookQuotes.Domain.Entities;
 
-public record Quote
+public record Annotation
 {
-    public required string Comment;
+    /// <summary>
+    /// Quoted text
+    /// </summary>
+    public required string Quote;
+
+    /// <summary>
+    /// Optional comment written by the user
+    /// </summary>
+    public string? Comment;
     
     /// <summary>
     /// "Raw" position in the book (probably a path to an HTML file)

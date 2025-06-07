@@ -23,7 +23,7 @@ public static class XmlAnnotationsParser
         {
             Title = title,
             Author = author,
-            Quotes = quotes
+            Annotations = quotes
         };
     }
 
@@ -43,9 +43,9 @@ public static class XmlAnnotationsParser
         return (title, author);
     }
 
-    private static List<Quote> ExtractQuotes(XDocument? doc)
+    private static List<Annotation> ExtractQuotes(XDocument? doc)
     {
-        var quotes = new List<Quote>();
+        var quotes = new List<Annotation>();
         var annotations = doc?.Root?.Elements(Ns + "annotation");
 
         if (annotations is null)
@@ -58,14 +58,14 @@ public static class XmlAnnotationsParser
         return quotes;
     }
 
-    private static Quote? TryExtractQuote(XElement annotation)
+    private static Annotation? TryExtractQuote(XElement annotation)
     {
         var fragment = annotation.Element(Ns + "target")?.Element(Ns + "fragment");
         if (fragment is null) return null;
 
-        return new Quote
+        return new Annotation
         {
-            Comment = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? "") ?? "XX",
+            Quote = ValueCleaner.CleanupValue(fragment.Element(Ns + "text")?.Value ?? "") ?? "XX",
             Position = fragment.Attribute("start")?.Value ?? ""
         };
     }
