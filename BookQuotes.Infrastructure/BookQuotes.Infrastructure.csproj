@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="Grynwald.MarkdownGenerator" Version="3.0.106" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.6" />
       <PackageReference Include="VersOne.Epub" Version="3.3.4" />
     </ItemGroup>
 
