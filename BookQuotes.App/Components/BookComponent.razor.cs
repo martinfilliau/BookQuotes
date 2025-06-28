@@ -13,10 +13,7 @@ public partial class BookComponent : ComponentBase
     [Inject] IExportBook ExportBook { get; set; } = null!;
     [Inject] FileDownloaderService FileDownloaderService { get; set; } = null!;
 
-    List<string> TocItems =>
-        Book?.TableOfContents == null
-            ? []
-            : Book.TableOfContents.GetTableOfContentsAsArray();
+    private TableOfContentsItem? RootToc => Book?.TableOfContents?.Root;
 
     protected override void OnParametersSet()
     {

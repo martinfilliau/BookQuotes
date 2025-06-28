@@ -1,0 +1,22 @@
+@using BookQuotes.Domain.Entities
+
+<li>
+    <MudText Typo="Typo.body1">@Item.Title</MudText>
+</li>
+
+@if (Item.SubItems.Count == 0)
+{
+    return;
+}
+
+<ul style="margin-left: 2em">
+@foreach (var subItem in Item.SubItems)
+{
+    <TableOfContentsItemComponent Item="@subItem"></TableOfContentsItemComponent>
+}
+</ul>
+
+@code {
+    [Parameter]
+    public required TableOfContentsItem Item { get; set; }
+}

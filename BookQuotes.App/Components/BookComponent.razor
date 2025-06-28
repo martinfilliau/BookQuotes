@@ -19,17 +19,16 @@
         }
         </MudStack>
 
-        @if (@TocItems.Count > 0)
+        @if (RootToc != null)
         {
             <br />
             <MudText Typo="Typo.h5">Table of content</MudText>
             <br />
 
             <MudStack Spacing="4">
-            @foreach (var item in @TocItems)
-            {
-                <MudText Typo="Typo.body1">@item</MudText>
-            }
+                <ul style="margin-left: 2em;">
+                    <TableOfContentsItemComponent Item="RootToc"></TableOfContentsItemComponent>
+                </ul>
             </MudStack>
         }
     </MudCardContent>
