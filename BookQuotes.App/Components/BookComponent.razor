@@ -5,10 +5,18 @@
             <MudText Typo="Typo.subtitle1">@Book.Author</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudIconButton Icon="@Icons.Material.Filled.Download"
-                           Color="Color.Default"
-                           OnClick="ExportQuotesMarkdown"
-                           Disabled="Book.Annotations.Count == 0" />
+            <MudTooltip Text="Copy to clipboard as text (Markdown)">
+                <MudIconButton Icon="@Icons.Material.Filled.ContentCopy"
+                               Color="Color.Default"
+                               OnClick="CopyToClipboard"
+                               Disabled="Book.Annotations.Count == 0"/>               
+            </MudTooltip>
+            <MudTooltip Text="Download as text (Markdown) file">
+                <MudIconButton Icon="@Icons.Material.Filled.Download"
+                               Color="Color.Default"
+                               OnClick="ExportQuotesMarkdown"
+                               Disabled="Book.Annotations.Count == 0"/>               
+            </MudTooltip>
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
