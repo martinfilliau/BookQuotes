@@ -71,9 +71,19 @@ public partial class UploadComponent : ComponentBase
 
     private async Task ProcessAnnotationFile(IBrowserFile file)
     {
-        using var reader = new StreamReader(file.OpenReadStream());
-        var text = await reader.ReadToEndAsync();
-        var bookQuotes = AnalyseQuotes.Analyse(text);
+        Book? bookQuotes;
+
+        try
+        {
+            using var reader = new StreamReader(file.OpenReadStream());
+            var text = await reader.ReadToEndAsync();
+            bookQuotes = AnalyseQuotes.Analyse(text);
+        }
+        catch (Exception exception)
+        {
+            await ShowMessageBox("Error", $"Unable to process quotes file: {exception.Message}");
+            return;
+        }
 
         if (bookQuotes != null)
         {
