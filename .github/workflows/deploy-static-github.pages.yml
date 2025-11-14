@@ -1,7 +1,7 @@
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 env:
-  PUBLISH_DIR: BookQuotes.App/bin/Release/net9.0/publish/wwwroot
+  PUBLISH_DIR: BookQuotes.App/bin/Release/net10.0/publish/wwwroot
 
 on:
   # Runs on pushes targeting the default branch for the app's folder path
@@ -42,7 +42,7 @@ jobs:
       - name: Get latest .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "9.0"
+          dotnet-version: "10.0"
 
       - name: Publish app
         run: dotnet publish BookQuotes.App -c Release
