@@ -14,6 +14,7 @@ public partial class UploadComponent : ComponentBase
     [Inject] private IAnalyseQuotes AnalyseQuotes { get; set; } = null!;
 
     private List<Book> Books { get; set; } = new();
+    private Dictionary<string, MemoryStream> EpubStreams { get; set; } = new();
 
     private async Task UploadFiles(IReadOnlyList<IBrowserFile>? files)
     {
@@ -42,26 +43,35 @@ public partial class UploadComponent : ComponentBase
         try
         {
             await using var stream = file.OpenReadStream(MaxFileSize);
-            using var ms = new MemoryStream();
+            var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
 
             var result = await AnalyseEpubFile.Analyse(ms);
 
             if (result == null)
             {
+                ms.Dispose();
                 await ShowMessageBox("Error", $"File {file.Name} is not a valid epub file.");
-                return;           
+                return;
             }
-            
+
             var index = Books.FindIndex(b => b.Title == result.Title);
             if (index >= 0)
             {
                 Books[index] = Books[index] with { TableOfContents = result.TableOfContents };
+                // Dispose old stream if exists
+                if (EpubStreams.TryGetValue(result.Title, out var oldStream))
+                {
+                    oldStream.Dispose();
+                }
             }
             else
             {
                 Books.Add(result);
             }
+
+            // Store the stream for search functionality
+            EpubStreams[result.Title] = ms;
         }
         catch (Exception e)
         {
@@ -106,6 +116,11 @@ public partial class UploadComponent : ComponentBase
     private void Reset()
     {
         Books = [];
+        foreach (var stream in EpubStreams.Values)
+        {
+            stream.Dispose();
+        }
+        EpubStreams = [];
     }
 
     private static bool IsEpubFile(IBrowserFile file)

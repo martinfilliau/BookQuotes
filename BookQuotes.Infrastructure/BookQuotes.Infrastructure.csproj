@@ -13,6 +13,10 @@
 
     <ItemGroup>
       <PackageReference Include="Grynwald.MarkdownGenerator" Version="3.0.106" />
+      <PackageReference Include="Lucene.Net" Version="4.8.0-beta00017" />
+      <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00017" />
+      <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00017" />
+      <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00017" />
       <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.3" />
       <PackageReference Include="VersOne.Epub" Version="3.3.5" />
     </ItemGroup>

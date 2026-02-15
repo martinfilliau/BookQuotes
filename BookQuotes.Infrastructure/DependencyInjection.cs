@@ -11,5 +11,7 @@ public static class DependencyInjection
         builder.Services.AddSingleton<IAnalyseQuotes, AnalyseQuotes>();
         builder.Services.AddSingleton<IAnalyseEpubFile, AnalyseEpubFile>();
         builder.Services.AddSingleton<IExportBook, ExportBook>();
+        builder.Services.AddSingleton<BookContentIndexService>();
+        builder.Services.AddSingleton<ISearchBookContent, SearchBookContent>();
     }
 }

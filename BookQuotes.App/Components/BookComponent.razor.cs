@@ -11,6 +11,7 @@ namespace BookQuotes.App.Components;
 public partial class BookComponent : ComponentBase
 {
     [Parameter] public required Book Book { get; set; }
+    [Parameter] public Stream? EpubStream { get; set; }
 
     [Inject] IExportBook ExportBook { get; set; } = null!;
     [Inject] FileDownloaderService FileDownloaderService { get; set; } = null!;

@@ -27,6 +27,13 @@
         }
         </MudStack>
 
+        @if (EpubStream != null)
+        {
+            <br />
+            <BookSearchComponent Book="@Book" EpubStream="@EpubStream"></BookSearchComponent>
+            <br />
+        }
+
         @if (RootToc != null)
         {
             <br />

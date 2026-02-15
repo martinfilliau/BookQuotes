@@ -21,7 +21,8 @@
         <MudStack Spacing="4">
         @foreach (var book in Books)
         {
-            <BookComponent Book="@book"></BookComponent>
+            var epubStream = EpubStreams.TryGetValue(book.Title, out var stream) ? stream : null;
+            <BookComponent Book="@book" EpubStream="@epubStream"></BookComponent>
         }
         </MudStack>
     </MudItem>
