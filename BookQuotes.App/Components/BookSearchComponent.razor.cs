@@ -60,7 +60,7 @@ public partial class BookSearchComponent : ComponentBase
         try
         {
             await Task.Delay(100); // Small delay for UI responsiveness
-            SearchResults = SearchBookContent.Search(Book.Title, SearchQuery, Book.SearchMode);
+            SearchResults = SearchBookContent.Search(Book, SearchQuery);
             ExpandedResults = [];
             HasSearched = true;
         }
@@ -78,13 +78,9 @@ public partial class BookSearchComponent : ComponentBase
 
     private void ToggleExpand(int index)
     {
-        if (ExpandedResults.Contains(index))
+        if (!ExpandedResults.Add(index))
         {
             ExpandedResults.Remove(index);
-        }
-        else
-        {
-            ExpandedResults.Add(index);
         }
     }
 

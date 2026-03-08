@@ -22,8 +22,26 @@ public class SearchBookContent : ISearchBookContent
         await _indexService.IndexBookContent(bookId, htmlContents, searchMode);
     }
 
-    public List<SearchResult> Search(string bookId, string query, BookSearchMode searchMode, int maxResults = 10)
+    public List<SearchResult> Search(Book book, string query, int maxResults = 10)
     {
-        return _indexService.Search(bookId, query, searchMode, maxResults);
+        var results = _indexService.Search(book.Title, query, book.SearchMode, maxResults);
+        
+        if (book.TableOfContents == null) return results;
+
+        foreach (var result in results)
+        {
+            var fileUrlParts = result.FileUrl.Split('/');
+            if (fileUrlParts.Length == 0) continue;
+            
+            var latestFileUrl = fileUrlParts[^1]; // e.g. text/PL01.xhtml => PL01.xhtml
+            
+            var location = book.TableOfContents.GetItem(latestFileUrl);
+            if (location != null)
+            {
+                result.FileTitle = location.Title;
+            }
+        }
+        
+        return results;
     }
 }

@@ -6,5 +6,6 @@ public record SearchResult
     public required string HighlightedContent { get; init; }
     public required string ExpandedContent { get; init; }
     public required string FileUrl { get; init; }
+    public string? FileTitle { get; set; }
     public float Score { get; init; }
 }

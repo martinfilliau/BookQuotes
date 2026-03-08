@@ -32,14 +32,14 @@
             <MudSpacer />
             <MudButton Variant="Variant.Filled" Color="Color.Secondary"
                        Disabled="Books.Count == 0"
-                       OnClick="Reset">Reset</MudButton>
+                       OnClick="@Reset">Reset</MudButton>
         </MudStack>
     </MudItem>
     <MudItem xs="12">
         <MudStack Spacing="4">
         @foreach (var book in Books)
         {
-            var epubStream = EpubStreams.TryGetValue(book.Title, out var stream) ? stream : null;
+            var epubStream = EpubStreams.GetValueOrDefault(book.Title);
             <BookComponent Book="@book" EpubStream="@epubStream"></BookComponent>
         }
         </MudStack>

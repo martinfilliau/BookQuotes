@@ -28,19 +28,19 @@
                 </MudText>
 
                 <MudStack Spacing="2">
-                    @for (int i = 0; i < SearchResults.Count; i++)
+                    @for (var i = 0; i < SearchResults.Count; i++)
                     {
                         var index = i;
                         var result = SearchResults[index];
                         var isExpanded = ExpandedResults.Contains(index);
 
                         <MudPaper Elevation="1" Class="pa-4" Style="cursor: pointer;" @onclick="() => ToggleExpand(index)">
-                            <MudText Typo="Typo.body2">
+                            <MudText Typo="Typo.body1">
                                 @((MarkupString)(isExpanded ? result.ExpandedContent : result.HighlightedContent))
                             </MudText>
                             <MudStack Row="true" Spacing="2" Class="mt-2" AlignItems="AlignItems.Center">
                                 <MudText Typo="Typo.caption">
-                                    Location: @result.FileUrl
+                                    Location: @(result.FileTitle ?? result.FileUrl)
                                 </MudText>
                                 <MudSpacer />
                                 <MudText Typo="Typo.caption">
