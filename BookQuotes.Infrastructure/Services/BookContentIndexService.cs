@@ -21,15 +21,10 @@ public class BookContentIndexService : IDisposable
     private readonly RAMDirectory _indexDirectory;
     private readonly SemaphoreSlim _indexLock = new(1, 1);
     private readonly Dictionary<string, BookSearchMode> _bookAnalyzers = new();
-    private IndexWriter? _writer;
 
     public BookContentIndexService()
     {
         _indexDirectory = new RAMDirectory();
-
-        // Initialize writer with a default analyzer (will be replaced per document)
-        var config = new IndexWriterConfig(AppLuceneVersion, new EnglishAnalyzer(AppLuceneVersion));
-        _writer = new IndexWriter(_indexDirectory, config);
     }
 
     public async Task IndexBookContent(string bookId, List<EpubContent> htmlContents, BookSearchMode searchMode)
@@ -42,13 +37,18 @@ public class BookContentIndexService : IDisposable
         }
 
         await _indexLock.WaitAsync();
+        IndexWriter? writer = null;
         try
         {
             // Store the analyzer type for this book
             _bookAnalyzers[bookId] = searchMode;
 
+            // Create a writer with the correct analyzer for this book
+            var config = new IndexWriterConfig(AppLuceneVersion, analyzer);
+            writer = new IndexWriter(_indexDirectory, config);
+
             // Clear existing documents for this book
-            _writer!.DeleteDocuments(new Term("bookId", bookId));
+            writer.DeleteDocuments(new Term("bookId", bookId));
 
             foreach (var epubContent in htmlContents)
             {
@@ -62,13 +62,14 @@ public class BookContentIndexService : IDisposable
                     new TextField("content", plainText, Field.Store.YES)
                 };
 
-                _writer.AddDocument(doc);
+                writer.AddDocument(doc);
             }
 
-            _writer.Commit();
+            writer.Commit();
         }
         finally
         {
+            writer?.Dispose();
             analyzer?.Dispose();
             _indexLock.Release();
         }
@@ -185,7 +186,6 @@ public class BookContentIndexService : IDisposable
 
     public void Dispose()
     {
-        _writer?.Dispose();
         _indexDirectory?.Dispose();
         _indexLock?.Dispose();
     }
