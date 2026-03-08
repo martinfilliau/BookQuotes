@@ -1,3 +1,5 @@
+@using BookQuotes.Domain.ValueObjects
+
 <MudGrid>
     <MudItem xs="12">
         <MudStack Row="true" Spacing="6">
@@ -13,6 +15,20 @@
                 </CustomContent>
                 <SelectedTemplate />
             </MudFileUpload>
+            <MudToggleGroup T="BookSearchMode"
+                            @bind-Value="SearchMode"
+                            SelectionMode="SelectionMode.SingleSelection"
+                            Color="Color.Primary">
+                <MudToggleItem Value="BookSearchMode.None">
+                    No search
+                </MudToggleItem>
+                <MudToggleItem Value="BookSearchMode.French">
+                    French search
+                </MudToggleItem>
+                <MudToggleItem Value="BookSearchMode.English">
+                    English search
+                </MudToggleItem>
+            </MudToggleGroup>
             <MudSpacer />
             <MudButton Variant="Variant.Filled" Color="Color.Secondary"
                        Disabled="Books.Count == 0"

@@ -1,5 +1,6 @@
 using BookQuotes.Application.Commands;
 using BookQuotes.Domain.Entities;
+using BookQuotes.Domain.ValueObjects;
 using BookQuotes.Infrastructure.Parsers;
 
 namespace BookQuotes.Infrastructure.Services;
@@ -15,14 +16,14 @@ public class SearchBookContent : ISearchBookContent
         _epubParser = new EpubParser();
     }
 
-    public async Task IndexBook(string bookId, Stream stream)
+    public async Task IndexBook(string bookId, Stream stream, BookSearchMode searchMode)
     {
         var htmlContents = await _epubParser.ExtractHtmlContent(stream);
-        await _indexService.IndexBookContent(bookId, htmlContents);
+        await _indexService.IndexBookContent(bookId, htmlContents, searchMode);
     }
 
-    public List<SearchResult> Search(string bookId, string query, int maxResults = 10)
+    public List<SearchResult> Search(string bookId, string query, BookSearchMode searchMode, int maxResults = 10)
     {
-        return _indexService.Search(bookId, query, maxResults);
+        return _indexService.Search(bookId, query, searchMode, maxResults);
     }
 }

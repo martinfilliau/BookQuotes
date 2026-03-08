@@ -35,7 +35,7 @@ public partial class BookSearchComponent : ComponentBase
 
         try
         {
-            await SearchBookContent.IndexBook(Book.Title, EpubStream);
+            await SearchBookContent.IndexBook(Book.Title, EpubStream, Book.SearchMode);
             IsIndexed = true;
         }
         catch (Exception e)
@@ -60,7 +60,7 @@ public partial class BookSearchComponent : ComponentBase
         try
         {
             await Task.Delay(100); // Small delay for UI responsiveness
-            SearchResults = SearchBookContent.Search(Book.Title, SearchQuery);
+            SearchResults = SearchBookContent.Search(Book.Title, SearchQuery, Book.SearchMode);
             ExpandedResults = [];
             HasSearched = true;
         }

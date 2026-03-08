@@ -1,3 +1,5 @@
+using BookQuotes.Domain.ValueObjects;
+
 namespace BookQuotes.Domain.Entities;
 
 public record Book
@@ -6,6 +8,7 @@ public record Book
     public required string Author;
     public List<Annotation> Annotations = [];
     public TableOfContents? TableOfContents;
+    public BookSearchMode SearchMode = BookSearchMode.None;
 
     /// <summary>
     /// Update quotes with closest Table of Contents item reference

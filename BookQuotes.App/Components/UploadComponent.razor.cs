@@ -1,5 +1,6 @@
 using BookQuotes.Application.Commands;
 using BookQuotes.Domain.Entities;
+using BookQuotes.Domain.ValueObjects;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -15,6 +16,7 @@ public partial class UploadComponent : ComponentBase
 
     private List<Book> Books { get; set; } = new();
     private Dictionary<string, MemoryStream> EpubStreams { get; set; } = new();
+    private BookSearchMode SearchMode { get; set; } = BookSearchMode.None;
 
     private async Task UploadFiles(IReadOnlyList<IBrowserFile>? files)
     {
@@ -58,7 +60,7 @@ public partial class UploadComponent : ComponentBase
             var index = Books.FindIndex(b => b.Title == result.Title);
             if (index >= 0)
             {
-                Books[index] = Books[index] with { TableOfContents = result.TableOfContents };
+                Books[index] = Books[index] with { TableOfContents = result.TableOfContents, SearchMode = SearchMode };
                 // Dispose old stream if exists
                 if (EpubStreams.TryGetValue(result.Title, out var oldStream))
                 {
@@ -67,6 +69,8 @@ public partial class UploadComponent : ComponentBase
             }
             else
             {
+                // Set the SearchMode on the new book
+                result.SearchMode = SearchMode;
                 Books.Add(result);
             }
 

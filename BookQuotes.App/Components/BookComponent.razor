@@ -1,3 +1,4 @@
+@using BookQuotes.Domain.ValueObjects
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
@@ -21,13 +22,13 @@
     </MudCardHeader>
     <MudCardContent>
         <MudStack Spacing="4">
-        @foreach (var quote in @Book.Annotations)
+        @foreach (var quote in Book.Annotations)
         {
             <QuoteComponent Annotation="quote"></QuoteComponent>
         }
         </MudStack>
 
-        @if (EpubStream != null)
+        @if (Book.SearchMode != BookSearchMode.None && EpubStream != null)
         {
             <br />
             <BookSearchComponent Book="@Book" EpubStream="@EpubStream"></BookSearchComponent>
