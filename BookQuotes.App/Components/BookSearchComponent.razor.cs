@@ -40,7 +40,7 @@ public partial class BookSearchComponent : ComponentBase
         }
         catch (Exception e)
         {
-            await DialogService.ShowMessageBox("Error", $"Failed to index book: {e.Message}");
+            await DialogService.ShowMessageBoxAsync("Error", $"Failed to index book: {e.Message}");
         }
     }
 
@@ -66,7 +66,7 @@ public partial class BookSearchComponent : ComponentBase
         }
         catch (Exception e)
         {
-            await DialogService.ShowMessageBox("Error", $"Search failed: {e.Message}");
+            await DialogService.ShowMessageBoxAsync("Error", $"Search failed: {e.Message}");
             SearchResults = [];
             ExpandedResults = [];
         }

@@ -133,5 +133,5 @@ public partial class UploadComponent : ComponentBase
         => await ShowMessageBox("Alert", $"File {file.Name} is not an epub file nor an XML (annotations) file.");
 
     private async Task ShowMessageBox(string title, string message)
-        => await DialogService.ShowMessageBox(title, message);
+        => await DialogService.ShowMessageBoxAsync(title, message);
 }

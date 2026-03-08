@@ -3,13 +3,15 @@
         <MudStack Row="true" Spacing="6">
             <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="UploadFiles"
                            Accept=".epub,.xml,.annot" AppendMultipleFiles="false">
-                <ActivatorContent>
+                <CustomContent>
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Primary"
+                               OnClick="@context.OpenFilePickerAsync"
                                StartIcon="@Icons.Material.Filled.CloudUpload">
                         Upload Epub or XML files with annotations
                     </MudButton>
-                </ActivatorContent>
+                </CustomContent>
+                <SelectedTemplate />
             </MudFileUpload>
             <MudSpacer />
             <MudButton Variant="Variant.Filled" Color="Color.Secondary"

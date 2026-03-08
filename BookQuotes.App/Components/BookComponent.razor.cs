@@ -50,7 +50,7 @@ public partial class BookComponent : ComponentBase
 
         if (!string.IsNullOrWhiteSpace(error))
         {
-            await DialogService.ShowMessageBox("Error: unable to export", error);
+            await DialogService.ShowMessageBoxAsync("Error: unable to export", error);
         }
     }
 
@@ -77,7 +77,7 @@ public partial class BookComponent : ComponentBase
         
         if (!string.IsNullOrWhiteSpace(error))
         {
-            await DialogService.ShowMessageBox("Error: unable to copy", error);
+            await DialogService.ShowMessageBoxAsync("Error: unable to copy", error);
         }
     }
 }
