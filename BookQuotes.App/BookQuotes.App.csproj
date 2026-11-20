@@ -7,11 +7,12 @@
         <AssemblyName>BookQuotes.App</AssemblyName>
         <RootNamespace>BookQuotes.App</RootNamespace>
         <LangVersion>15</LangVersion>
+        <StaticWebAssetSpaFallbackEnabled>true</StaticWebAssetSpaFallbackEnabled>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="11.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="11.0.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Gateway" Version="11.0.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.DotNet.HotReload.WebAssembly.Browser" Version="11.0.100-preview.1.26104.118" />
         <PackageReference Include="MudBlazor" Version="9.14.0" />
     </ItemGroup>
