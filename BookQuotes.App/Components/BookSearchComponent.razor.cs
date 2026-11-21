@@ -15,8 +15,8 @@ public partial class BookSearchComponent : ComponentBase
     [Inject] private IDialogService DialogService { get; set; } = null!;
 
     private string SearchQuery { get; set; } = string.Empty;
-    private List<SearchResult> SearchResults { get; set; } = [];
-    private HashSet<int> ExpandedResults { get; set; } = [];
+    private List<SearchResult> SearchResults { get; set; } = [ with(capacity: 10) ];
+    private HashSet<int> ExpandedResults { get; set; } = [ with(capacity: 4) ];
     private bool IsSearching { get; set; }
     private bool HasSearched { get; set; }
     private bool IsIndexed { get; set; }

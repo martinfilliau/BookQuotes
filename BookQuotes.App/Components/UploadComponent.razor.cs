@@ -14,8 +14,8 @@ public partial class UploadComponent : ComponentBase
     [Inject] private IAnalyseEpubFile AnalyseEpubFile { get; set; } = null!;
     [Inject] private IAnalyseQuotes AnalyseQuotes { get; set; } = null!;
 
-    private List<Book> Books { get; set; } = new();
-    private Dictionary<string, MemoryStream> EpubStreams { get; set; } = new();
+    private List<Book> Books { get; set; } = [ with(capacity: 4) ];
+    private Dictionary<string, MemoryStream> EpubStreams { get; set; } = [ with(capacity: 4) ];
     private BookSearchMode SearchMode { get; set; } = BookSearchMode.None;
 
     private async Task UploadFiles(IReadOnlyList<IBrowserFile>? files)

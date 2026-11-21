@@ -20,7 +20,7 @@ public class BookContentIndexService : IDisposable
     private const LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
     private readonly RAMDirectory _indexDirectory;
     private readonly SemaphoreSlim _indexLock = new(1, 1);
-    private readonly Dictionary<string, BookSearchMode> _bookAnalyzers = new();
+    private readonly Dictionary<string, BookSearchMode> _bookAnalyzers = [ with(capacity: 4) ];
 
     public BookContentIndexService()
     {

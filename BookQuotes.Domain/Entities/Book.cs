@@ -6,7 +6,7 @@ public record Book
 {
     public required string Title;
     public required string Author;
-    public List<Annotation> Annotations = [];
+    public List<Annotation> Annotations = [ with(capacity: 8) ];
     public TableOfContents? TableOfContents;
     public BookSearchMode SearchMode = BookSearchMode.None;
 

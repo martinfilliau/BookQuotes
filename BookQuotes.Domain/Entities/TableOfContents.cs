@@ -5,7 +5,7 @@ namespace BookQuotes.Domain.Entities;
 /// </summary>
 public class TableOfContents
 {
-    private readonly Dictionary<string, TableOfContentsItem> _items = new();
+    private readonly Dictionary<string, TableOfContentsItem> _items = [ with(capacity: 16) ];
     public TableOfContentsItem? Root { get; set; }
 
     public void AddItem(string id, string title, string? pageReference = null, string? parentId = null)
@@ -50,5 +50,5 @@ public class TableOfContentsItem(string id, string title, string? pageReference 
     public string Id { get; } = id;
     public string Title { get; } = title;
     public string? PageReference { get; } = pageReference;
-    public List<TableOfContentsItem> SubItems { get; } = new();
+    public List<TableOfContentsItem> SubItems { get; } = [ with(capacity: 4) ];
 }

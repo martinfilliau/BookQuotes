@@ -45,13 +45,12 @@ public class TableOfContentTests
         var result = tableOfContents.GetTableOfContentsAsArray();
 
         // Assert
-        var expected = new List<string>
-        {
+        string[] expected = [
             "- Chapter 1",
             "  - Section 1.1",
             "    - Subsection 1.1.1",
             "  - Section 1.2"
-        };
+        ];
 
         Assert.Equal(expected, result);
     }
@@ -69,10 +68,7 @@ public class TableOfContentTests
         var result = tableOfContents.GetTableOfContentsAsArray();
 
         // Assert
-        var expected = new List<string>
-        {
-            "- Chapter 1"
-        };
+        string[] expected = ["- Chapter 1"];
 
         Assert.Equal(expected, result);
     }

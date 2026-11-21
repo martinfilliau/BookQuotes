@@ -5,16 +5,9 @@ using BookQuotes.Infrastructure.Parsers;
 
 namespace BookQuotes.Infrastructure.Services;
 
-public class SearchBookContent : ISearchBookContent
+public class SearchBookContent(BookContentIndexService _indexService) : ISearchBookContent
 {
-    private readonly BookContentIndexService _indexService;
-    private readonly EpubParser _epubParser;
-
-    public SearchBookContent(BookContentIndexService indexService)
-    {
-        _indexService = indexService;
-        _epubParser = new EpubParser();
-    }
+    private readonly EpubParser _epubParser = new();
 
     public async Task IndexBook(string bookId, Stream stream, BookSearchMode searchMode)
     {
